@@ -1,0 +1,148 @@
+<div class="min-h-screen relative overflow-hidden flex flex-col bg-[#0B0615] text-[#F7F0FF] selection:bg-amber-400/40 selection:text-black">
+
+  <!-- FONDO CÓSMICO -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,#4A1278_0%,#200C3F_40%,#0B0615_80%)]"></div>
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[650px] rounded-full bg-gradient-to-br from-purple-500/30 via-fuchsia-600/20 to-transparent blur-[140px] pointer-events-none"></div>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <header class="sticky top-0 z-50 border-b border-purple-300/20 bg-[#10091D]/95 backdrop-blur-2xl shadow-xl">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a routerLink="/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/50 to-violet-900/60 border border-amber-300/40 flex items-center justify-center shadow-[0_0_20px_rgba(253,230,138,0.3)]">
+          <span class="text-xl text-amber-200">✦</span>
+        </div>
+        <div>
+          <h1 class="font-serif text-sm sm:text-base tracking-[0.2em] text-white font-medium">TAROT & CARTA NATAL</h1>
+          <p class="text-[8px] tracking-[0.3em] text-purple-200 uppercase">Santuario Astrológico</p>
+        </div>
+      </a>
+      <nav class="flex items-center gap-3 sm:gap-6 text-xs uppercase tracking-[0.15em]">
+        <a routerLink="/" class="px-3 py-2 rounded-lg text-purple-100 hover:text-amber-200 transition-all font-medium">Santuario</a>
+        <a routerLink="/booking" class="px-3 py-2 rounded-lg text-amber-200 bg-purple-500/20 transition-all font-medium">Turnos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO / FORMULARIO -->
+  <main class="relative z-10 flex-grow w-full max-w-3xl mx-auto px-6 py-12 sm:py-16">
+    
+    <div class="text-center mb-10">
+      <span class="text-[10px] uppercase tracking-[0.3em] text-amber-200 bg-purple-900/40 border border-amber-300/30 px-5 py-2 rounded-full inline-block mb-4">
+        ✦ Agenda tu Espacio ✦
+      </span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-white mb-3">Reserva tu consulta</h2>
+      <p class="text-purple-200/80 text-xs sm:text-sm max-w-lg mx-auto">
+        Selecciona el tipo de tirada o servicio, elige tu fecha y completa tus datos para asegurar tu espacio de lectura personalizada.
+      </p>
+    </div>
+
+    <!-- TARJETA DEL FORMULARIO -->
+    <div class="relative rounded-[2rem] p-[1px] bg-gradient-to-br from-amber-300/60 via-purple-600/40 to-amber-200/30 shadow-2xl">
+      <div class="relative overflow-hidden rounded-[2.0rem] bg-[#120822]/95 backdrop-blur-2xl p-6 sm:p-10">
+
+        <!-- Alertas de éxito o error -->
+        @if (successMessage()) {
+          <div class="mb-6 p-4 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs sm:text-sm text-center">
+            {{ successMessage() }}
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="mb-6 p-4 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-200 text-xs sm:text-sm text-center">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+          <!-- Nombre y Apellido -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Nombre y Apellido *</label>
+              <input type="text" formControlName="client_name" placeholder="Ej. Lucía Martínez"
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white placeholder-purple-400/50 text-sm focus:outline-none focus:border-amber-300 transition-colors">
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Correo Electrónico *</label>
+              <input type="email" formControlName="client_email" placeholder="tucorreo@email.com"
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white placeholder-purple-400/50 text-sm focus:outline-none focus:border-amber-300 transition-colors">
+            </div>
+          </div>
+
+          <!-- Teléfono y Tipo de Servicio -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Teléfono / WhatsApp *</label>
+              <input type="text" formControlName="client_phone" placeholder="+54 9 ..."
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white placeholder-purple-400/50 text-sm focus:outline-none focus:border-amber-300 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Servicio / Tipo de Tirada *</label>
+              <select formControlName="service_type"
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-300 transition-colors">
+                <option value="Tirada de Tarot General">Tirada de Tarot General</option>
+                <option value="Consulta Específica (Amor / Trabajo)">Consulta Específica (Amor / Trabajo)</option>
+                <option value="Interpretación de Arcanos Mayores">Interpretación de Arcanos Mayores</option>
+                <option value="Consulta de Carta Natal (Interpretación)">Consulta de Carta Natal (Interpretación)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fecha y Horario -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Fecha de la Sesión *</label>
+              <input type="date" formControlName="booking_date"
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-300 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Horario Preferido *</label>
+              <select formControlName="time_slot"
+                class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-300 transition-colors">
+                <option value="15:00">15:00 hs</option>
+                <option value="16:30">16:30 hs</option>
+                <option value="18:00">18:00 hs</option>
+                <option value="19:30">19:30 hs</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Notas Adicionales -->
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-purple-200 mb-2 font-medium">Notas o Preguntas Opcionales</label>
+            <textarea formControlName="notes" rows="3" placeholder="Si solicitas turno de carta natal, incluye tus datos de nacimiento (fecha, hora y lugar)..."
+              class="w-full bg-[#1A0E31] border border-purple-300/30 rounded-xl px-4 py-3 text-white placeholder-purple-400/50 text-sm focus:outline-none focus:border-amber-300 transition-colors resize-none"></textarea>
+          </div>
+
+          <!-- BOTÓN DE ENVÍO -->
+          <div class="pt-4 text-center">
+            <button type="submit" [disabled]="isSubmitting()"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-[#0B0615] font-extrabold text-xs uppercase tracking-[0.18em] shadow-[0_0_25px_rgba(253,230,138,0.5)] hover:shadow-[0_0_40px_rgba(253,230,138,0.8)] hover:scale-[1.02] transition-all disabled:opacity-50">
+              <span>{{ isSubmitting() ? 'Procesando reserva...' : 'Confirmar reserva de turno' }}</span>
+              <span>→</span>
+            </button>
+            <p class="text-[10px] text-purple-300/70 mt-3 tracking-wider uppercase">Los detalles y duración de la sesión se informarán al confirmar</p>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 mt-16 border-t border-purple-300/20 bg-[#090513] py-6 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-purple-200/80">
+      <p>© 2026 Tarot & Carta Natal. Todos los derechos reservados.</p>
+      <p class="text-amber-200/90 font-medium tracking-wider">✧ Lectura intuitiva y consciente ✧</p>
+    </div>
+  </footer>
+
+</div>
