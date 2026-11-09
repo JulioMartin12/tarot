@@ -1,0 +1,94 @@
+<div class="min-h-screen bg-[#090712] text-[#E6E1DC] relative overflow-hidden flex flex-col justify-between selection:bg-[#D4AF37]/30">
+  
+  <!-- Fondo con efectos de constelaciones y brillo sutil -->
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,39,68,0.25)_0%,transparent_70%)] pointer-events-none"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-[#D4AF37]/10 via-transparent to-transparent blur-3xl pointer-events-none"></div>
+
+  <!-- Barra de Navegación Superior -->
+  <header class="w-full py-6 px-8 flex justify-between items-center border-b border-[#2E2744]/50 backdrop-blur-md z-10">
+    <div class="flex items-center space-x-3">
+      <span class="text-xl font-serif tracking-widest text-[#D4AF37]">✦ ASTROLABIA</span>
+    </div>
+    <nav class="hidden sm:flex items-center space-x-6 text-xs uppercase tracking-widest text-[#A29Aad]">
+      <a routerLink="/" class="hover:text-[#D4AF37] transition-colors">Inicio</a>
+      <a routerLink="/booking" class="hover:text-[#D4AF37] transition-colors">Carta Natal & Turnos</a>
+      <a routerLink="/admin/post" class="hover:text-[#D4AF37] transition-colors opacity-60">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="max-w-4xl w-full mx-auto px-6 py-12 z-10 flex-grow flex flex-col items-center">
+    
+    <!-- Presentación del Estudio Astrológico -->
+    <div class="text-center max-w-2xl mb-12">
+      <span class="text-[11px] uppercase tracking-[0.3em] text-[#D4AF37] bg-[#1A162B] border border-[#2E2744] px-4 py-1.5 rounded-full shadow-inner inline-block mb-4">
+        Lecturas Astrológicas & Tránsitos Celestes
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-serif text-[#F3E5AB] tracking-wide mb-4 leading-tight">
+        Descifrando el mapa de tu cielo
+      </h1>
+      <p class="text-[#A29Aad] text-sm sm:text-base font-light leading-relaxed">
+        Un espacio dedicado al autoconconocimiento a través de la interpretación profunda de la Carta Natal y los ciclos planetarios actuales.
+      </p>
+    </div>
+
+    <!-- Tarjeta de Publicación / Tránsito del Día -->
+    <div class="w-full bg-[#120F1D]/80 backdrop-blur-xl border border-[#2E2744] rounded-3xl p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-[#D4AF37]/40">
+      <div *ngIf="post(); else loading">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-[#2E2744]/60 gap-2">
+          <div class="flex items-center space-x-2">
+            <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+            <span class="text-xs uppercase tracking-widest text-[#D4AF37] font-medium">
+              Tránsito del Día
+            </span>
+          </div>
+          <span class="text-xs text-[#A29Aad] tracking-wider">{{ post()?.created_at | date:'dd / MM / yyyy' }}</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-serif text-[#F3E5AB] mb-6 leading-snug">
+          {{ post()?.title }}
+        </h2>
+
+        <!-- Imagen con marco y efecto sutil -->
+        <div class="relative overflow-hidden rounded-2xl mb-8 border border-[#2E2744] shadow-2xl group">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#090712]/60 via-transparent to-transparent z-10 opacity-60"></div>
+          <img [src]="post()?.image_url" alt="Tránsito astrológico" class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-1000">
+        </div>
+
+        <p class="text-[#C5Bfd0] leading-relaxed font-sans text-sm sm:text-base font-light whitespace-pre-line mb-10">
+          {{ post()?.description }}
+        </p>
+      </div>
+
+      <ng-template #loading>
+        <div class="py-24 text-center">
+          <div class="inline-block w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p class="text-[#A29Aad] font-serif text-sm tracking-wider">Leyendo las configuraciones celestes...</p>
+        </div>
+      </ng-template>
+
+      <!-- Sección de Reserva / Llamado a la Acción refinado -->
+      <div class="bg-[#1A162B]/60 border border-[#2E2744] rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#D4AF37]/5 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <h3 class="text-xl font-serif text-[#F3E5AB] mb-2">Agenda tu lectura personalizada</h3>
+        <p class="text-[#A29Aad] text-xs sm:text-sm max-w-lg mx-auto mb-6 font-light">
+          Explora en profundidad tu revolución solar, tránsitos actuales o el diseño único de tu Carta Natal en una sesión privada de 45 minutos.
+        </p>
+        
+        <a routerLink="/booking" class="inline-flex items-center justify-center bg-gradient-to-r from-[#D4AF37] to-[#b8952d] hover:from-[#e2be42] hover:to-[#c7a233] text-[#090712] font-semibold py-3.5 px-8 rounded-full transition-all duration-300 shadow-[0_4px_20px_rgba(212,175,55,0.25)] tracking-wide uppercase text-xs">
+          Reservar mi Turno
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer Minimalista -->
+  <footer class="w-full py-8 text-center text-xs text-[#A29Aad] border-t border-[#2E2744]/40 mt-12">
+    <p class="tracking-widest uppercase">&copy; 2026 Astrología & Carta Natal. Todos los derechos reservados.</p>
+  </footer>
+
+</div>
