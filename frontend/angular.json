@@ -59,6 +59,12 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": [
+              "all",
+              ".loca.lt"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production"
